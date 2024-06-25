@@ -6,7 +6,7 @@ require_once 'helper.php';
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"]) && $_POST["action"] === "start") {
 	session_unset();
 	$_SESSION['player_id'] = uniqid();
-	$_SESSION['availableLetters'] = generateRandomString(12);
+	$_SESSION['availableLetters'] = generateRandomString(15);
 	$_SESSION['highScores'] = [];
 	redirect("game.php");
 }

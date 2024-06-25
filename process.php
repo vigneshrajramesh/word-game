@@ -1,4 +1,5 @@
 <?php
+error_reporting(E_ERROR | E_PARSE);
 session_start();
 require_once 'helper.php';
 
@@ -15,7 +16,32 @@ function isValidWord($word, $availableLetters)
 	}
 
 	// For simplicity, assume all submitted words are valid
-	return true;
+	return isValidEnglishWord($word);
+}
+
+// Function to check if a word is valid using dictionary API
+function isValidEnglishWord($word)
+{
+	$api_url = "https://api.dictionaryapi.dev/api/v2/entries/en/" . urlencode($word);
+	// Make GET request to API
+	$response = file_get_contents($api_url);
+
+	if ($response === false) {
+		// Handle API request error
+		return false;
+	}
+
+	// Decode JSON response
+	$data = json_decode($response, true);
+
+	// Check if API returned valid data
+	if (is_array($data) && isset($data[0]['meanings'])) {
+		// Word is valid if API returned meanings
+		return true;
+	} else {
+		// Word is not valid or API did not return meanings
+		return false;
+	}
 }
 
 // Function to calculate score based on word length
@@ -43,20 +69,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"])) {
 			$submittedWord = trim($_POST["wordInput"]);
 
 			if (!isValidWord($submittedWord, $_SESSION['availableLetters'])) {
-				die("Error: Invalid word or cannot be formed with available letters.");
-			}
-
-			$score = scoreWord($submittedWord);
-			$_SESSION['highScores'][$submittedWord] = $score;
-			$_SESSION['availableLetters'] = updateAvailableLetters($submittedWord, $_SESSION['availableLetters']);
-
-			if (empty($_SESSION['availableLetters'])) {
+				$_SESSION['flash_message'] = "Error: Given word cannot be formed with available letters.";
 				redirect("game.php");
 			}
-			redirect("game.php");
+			if (!isValidEnglishWord($submittedWord)) {
+				$_SESSION['flash_message'] = "Error: Invalid word.";
+				redirect("game.php");
+			} else {
+				$score = scoreWord($submittedWord);
+				$_SESSION['highScores'][$submittedWord] = $score;
+				$_SESSION['availableLetters'] = updateAvailableLetters($submittedWord, $_SESSION['availableLetters']);
+
+				if (empty($_SESSION['availableLetters'])) {
+					redirect("game.php");
+				}
+				redirect("game.php");
+			}
 			break;
 
 		case "end_game":
+			$_SESSION['availableLetters'] = '';
+			$_SESSION['flash_message'] = "Game ended. Final scores are shown below.";
+			if (empty($_SESSION['highScores'])) {
+				redirect("index.php");
+			}
 			redirect("game.php");
 			break;
 	}
