@@ -16,7 +16,7 @@ function isValidWord($word, $availableLetters)
 	}
 
 	// For simplicity, assume all submitted words are valid
-	return isValidEnglishWord($word);
+	return true;
 }
 
 // Function to check if a word is valid using dictionary API

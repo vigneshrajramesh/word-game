@@ -55,7 +55,7 @@ unset($_SESSION['flash_message']); // Clear flash message after displaying
             <div class="alert alert-info"><?php echo $flashMessage; ?></div>
         <?php endif; ?>
         <?php if (!$gameEnded) : ?>
-            <div class="text-center mb-4">
+            <div class="text-center mt-5 mb-4">
                 <h3><?php echo $availableLetters; ?></h3>
             </div>
 
