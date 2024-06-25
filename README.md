@@ -9,7 +9,7 @@ This repository contains a simple PHP-based word game where players can form wor
 - **Game Start:** Players start the game by generating a unique set of letters.
 - **Word Submission:** Players can submit valid English words formed from the available letters.
 - **Score Calculation:** Each word's score is determined by its length.
-- **End Game:** Players can end the game, which clears all session data.
+- **End Game:** Players can end the game, which clears all session data and displays all words with their scores in a table format.
 - **Bootstrap Design:** Implemented using Bootstrap 4 for responsive and clean UI.
 
 ### Why This Approach
