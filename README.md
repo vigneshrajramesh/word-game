@@ -24,4 +24,4 @@ To run the PHP word game locally or on your server, follow these steps:
 
 1. **Clone Repository:**
    ```bash
-   git clone https://github.com/your-username/php-word-game.git
+   git clone https://github.com/vigneshrajramesh/word-game.git
