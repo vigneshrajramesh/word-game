@@ -65,11 +65,15 @@ unset($_SESSION['flash_message']); // Clear flash message after displaying
                         <input type="hidden" name="action" value="submit_word">
                         <div class="form-group">
                             <label for="wordInput">Enter a word:</label>
-                            <input type="text" id="wordInput" name="wordInput" class="form-control" autocomplete="off" required>
+                            <input type="text" id="wordInput" name="wordInput" class="form-control" autocomplete="off" onkeyup="convertToUpperCase()" required>
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Submit</button>
                     </form>
+
                 </div>
+                <!-- <form action="process.php" method="post">
+                    <button type="submit" name="action" value="next_puzzle" class="btn btn-sm btn-primary btn-block">Next</button>
+                </form> -->
             </div>
 
             <div class="row justify-content-center">
@@ -98,12 +102,17 @@ unset($_SESSION['flash_message']); // Clear flash message after displaying
                     <tbody>
                         <?php
                         arsort($_SESSION['highScores']);
-                        foreach ($_SESSION['highScores'] as $word => $score) : ?>
+                        $ttlScore = 0;
+                        foreach ($_SESSION['highScores'] as $word => $score) : $ttlScore += $score; ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($word); ?></td>
                                 <td><?php echo $score; ?></td>
                             </tr>
                         <?php endforeach; ?>
+                        <tr>
+                            <td><b>Total</b></td>
+                            <td><b><?php echo $ttlScore; ?></b></td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
@@ -112,7 +121,7 @@ unset($_SESSION['flash_message']); // Clear flash message after displaying
                 <div class="col-md-2">
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <input type="hidden" name="action" value="restart_game">
-                        <button type="submit" class="btn btn-primary btn-block">Restart Game</button>
+                        <button type="submit" class="btn btn-sm btn-primary btn-block">Restart Game</button>
                     </form>
                 </div>
             </div>
@@ -130,5 +139,15 @@ unset($_SESSION['flash_message']); // Clear flash message after displaying
         <?php endif; ?>
     </div>
 </body>
-
+<script>
+        function convertToUpperCase() {
+     
+            // Get input value
+            var input = document.getElementById('wordInput').value;
+            // Convert to uppercase
+            var uppercaseText = input.toUpperCase();
+            // Update output
+            document.getElementById('wordInput').value = uppercaseText;
+        }
+    </script>
 </html>

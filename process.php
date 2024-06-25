@@ -81,12 +81,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["action"])) {
 				$_SESSION['availableLetters'] = updateAvailableLetters($submittedWord, $_SESSION['availableLetters']);
 
 				if (empty($_SESSION['availableLetters'])) {
+					// $_SESSION['availableLetters'] = generateRandomString(15);
 					redirect("game.php");
 				}
 				redirect("game.php");
 			}
 			break;
-
+		case "next_puzzle":
+			$_SESSION['availableLetters'] = generateRandomString(15);
+			redirect("game.php");
+			break;
 		case "end_game":
 			$_SESSION['availableLetters'] = '';
 			$_SESSION['flash_message'] = "Game ended. Final scores are shown below.";
