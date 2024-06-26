@@ -18,6 +18,8 @@ This repository contains a simple PHP-based word game where players can form wor
 
 - **Bootstrap Integration:** Bootstrap is utilized for frontend styling to enhance user experience and ensure a modern interface.
 
+- Overall, this approach provides a balance between simplicity, security, and user experience, making it an effective solution for implementing a word game.
+
 ## Setup Instructions
 
 ### Prerequisites
