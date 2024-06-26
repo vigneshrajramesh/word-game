@@ -3,7 +3,9 @@ session_start();
 require_once 'helper.php';
 
 if (!isset($_SESSION['player_id'])) {
-    die("Error: Game session not started.");
+    $_SESSION['flash_message'] = "Error: Game session not started.";
+    redirect("index.php");
+    exit;
 }
 
 $gameEnded = empty($_SESSION['availableLetters']);
