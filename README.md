@@ -20,6 +20,11 @@ This repository contains a simple PHP-based word game where players can form wor
 
 ## Setup Instructions
 
+### Prerequisites
+
+1. **Web Server**: A local web server like Apache or Nginx.
+2. **PHP**: PHP 7.4 or higher.
+   
 To run the PHP word game locally or on your server, follow these steps:
 
 1. **Clone Repository:**
